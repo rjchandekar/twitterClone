@@ -4,9 +4,13 @@ const app = express();
 const middleware = require('./middleware');
 const path = require('path');
 
+
 app.listen(PORT, () => {
     console.log('Listening on PORT :', PORT);
 })
+
+// Body Parser
+app.use(express.urlencoded({extended: false}));
 
 //setting up views
 app.set("view engine", "pug");
