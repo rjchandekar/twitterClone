@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
+const bcrypt = require('bcrypt');
 
 const User = require('../models/user')
 
@@ -42,12 +43,13 @@ router.post('/', async (req, res, next) => {
         });
 
         if(user==null){
-            // no user found 
+            // no user found
+            req.body.password = await bcrypt.hash(password, 10);
             User.create(req.body)
             .then((user) => {
-                console.log(user);
+                req.session.user = user;
+                return res.redirect('/');
             })
-
         }else{
             //found a user having same username/email
 

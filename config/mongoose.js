@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-mongoose.connect("mongodb+srv://admin:O6nWUllQwcBUXHL1@cluster0.wrmsr.mongodb.net/twitter_clone?retryWrites=true&w=majority")
+const key = require('../secrets/keys'); 
+
+mongoose.connect(key.mongoURI)
 .then(() => {
     console.log('Connected to Database :: MongoDB');
 })
