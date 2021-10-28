@@ -3,11 +3,7 @@ const PORT = 8000;
 const app = express();
 const middleware = require('./middleware');
 const path = require('path');
-
-
-app.listen(PORT, () => {
-    console.log('Listening on PORT :', PORT);
-})
+const db = require('./config/mongoose');
 
 // Body Parser
 app.use(express.urlencoded({extended: false}));
@@ -32,3 +28,10 @@ app.get('/', middleware.requireLogin, (req, res, next) => {
     }
     res.status(200).render('home', payload);
 })
+
+app.listen(PORT, function(err){
+    if (err){
+        console.log(`Error in running the server: ${err}`);
+    }
+    console.log(`Server is running on port: ${PORT}`);
+});
